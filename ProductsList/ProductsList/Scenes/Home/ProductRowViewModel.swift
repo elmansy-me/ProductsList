@@ -9,7 +9,12 @@ import Foundation
 import SwiftUI
 
 struct ProductRowViewModel: Identifiable {
+  
     let item: ProductModel
+    
+    init(item: ProductModel) {
+        self.item = item
+    }
     
     var id: String {
         return UUID().description
@@ -25,7 +30,4 @@ struct ProductRowViewModel: Identifiable {
         return item.image_urls_thumbnails.first ?? ""
     }
   
-  init(item: ProductModel) {
-    self.item = item
-  }
 }

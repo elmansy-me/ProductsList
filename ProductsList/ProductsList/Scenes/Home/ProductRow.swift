@@ -18,19 +18,7 @@ struct ProductRow: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 10){
-            CachedAsyncImage(url: URL(string: viewModel.imageURL)) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .transition(.scale(scale: 0.1, anchor: .center))
-            } placeholder: {
-                ProgressView()
-            }.frame(
-                width: 60,
-                height: 60,
-                alignment: .center
-              )
-            .cornerRadius(8, antialiased: true)
+            BuildImage(withURL: viewModel.imageURL, width: 60, height: 60)
             VStack(alignment: .leading) {
                 Text(viewModel.name)
                     .font(.body)
@@ -40,4 +28,25 @@ struct ProductRow: View {
             }
         }
     }
+}
+
+extension ProductRow{
+
+    @ViewBuilder
+    private func BuildImage(withURL url: String, width:CGFloat, height:CGFloat)->some View{
+        
+        CachedAsyncImage(url: URL(string: url)) { image in
+            image
+                .resizable()
+                .scaledToFill()
+        } placeholder: {
+            ProgressView()
+        }.frame(
+            width: width,
+            height: height,
+            alignment: .center
+          )
+        .cornerRadius(8, antialiased: true)
+    }
+    
 }

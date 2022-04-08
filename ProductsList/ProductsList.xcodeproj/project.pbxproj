@@ -130,10 +130,10 @@
 		D855DAC82800746F003825E3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				D855DAC92800746F003825E3 /* ProductRowViewModel.swift */,
-				D855DACA2800746F003825E3 /* HomeViewModel.swift */,
 				D855DACB2800746F003825E3 /* HomeView.swift */,
+				D855DACA2800746F003825E3 /* HomeViewModel.swift */,
 				D855DACC2800746F003825E3 /* ProductRow.swift */,
+				D855DAC92800746F003825E3 /* ProductRowViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";

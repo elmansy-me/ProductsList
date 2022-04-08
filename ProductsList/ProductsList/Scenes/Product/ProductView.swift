@@ -18,51 +18,63 @@ struct ProductView: View {
     var body: some View {
         GeometryReader { geometryProxy in
             VStack(alignment: .leading) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack{
-                        ForEach(0..<viewModel.images.count){
-                            AsyncImage(url: URL(string: viewModel.images[$0])) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                            } placeholder: {
-                                ProgressView()
-                            }
-                            .frame(
-                                width: geometryProxy.size.width,
-                                height: 200,
-                                alignment: .center
-                            )
-                        }
-                    }
-                }
+                imagesScrollView(data: viewModel.images,
+                                 width: geometryProxy.size.width,
+                                 height: 250)
                 VStack(alignment: .leading, spacing: 20){
                     VStack(alignment: .leading, spacing: 10){
-                        Text("Product:")
-                            .bold()
-                        Text(viewModel.name)
-                            .fontWeight(.thin)
+                        Build(title: "Product", value: viewModel.name)
                     }
-                    HStack{
-                        Text("Price:")
-                            .bold()
-                        Text(viewModel.price)
-                            .fontWeight(.thin)
-                    }
-                    HStack{
-                        Text("Date:")
-                            .bold()
-                        Text(viewModel.date)
-//                        Text(Date(), style: .date)
-                            .fontWeight(.thin)
-                    }
+                    Divider()
+                    BuildHStack(title: "Price", value: viewModel.price)
+                    Divider()
+                    BuildHStack(title: "Date", value: viewModel.date)
                 }.padding()
             }
         }
-        
-        
-        
         .navigationTitle(viewModel.name)
         .navigationBarTitleDisplayMode(.inline)
     }
+    
+}
+
+
+extension ProductView{
+
+    @ViewBuilder
+    private func BuildHStack(title: String, value:String)->some View{
+        HStack{
+            Build(title: title, value: value)
+        }
+    }
+    
+    @ViewBuilder
+    private func Build(title: String, value:String)->some View{
+        Text(title + ":")
+            .bold()
+        Text(value)
+            .fontWeight(.thin)
+    }
+    
+    private func imagesScrollView(data:[String], width: CGFloat, height: CGFloat)->some View{
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack{
+                ForEach(0..<data.count){
+                    AsyncImage(url: URL(string: data[$0])) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(
+                        width: width,
+                        height: height,
+                        alignment: .center
+                    )
+                }
+            }
+        }
+    }
+    
 }
